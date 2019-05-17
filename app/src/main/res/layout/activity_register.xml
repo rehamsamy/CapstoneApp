@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".firebase.RegisterActivity"
+    android:layoutDirection="rtl"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -30,7 +31,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create New Account"/>
+            android:text="@string/create_account"/>
 
 
         <android.support.design.widget.TextInputLayout

@@ -5,8 +5,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     Call<PersonList>personListCall;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
+    public static ArrayList<Movie> widgetMovie;
     String movieType;
     MovieDatabase database;
 
@@ -77,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         getSupportActionBar().setTitle("Poster Display");
 
 
+        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            startActivity(new Intent(this,StartActivity.class));
+            finish();
+        }
 
 
         database=MovieDatabase.getInstance(getApplicationContext());
@@ -102,9 +111,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         movieType="popular";
 
 
+       if(savedInstanceState==null){
+           movieListCall=retrofitInterface.getPopular(movieType,RetrofitInterface.apiKey);
+           readRetrofitData(movieType,movieListCall);
 
-        movieListCall=retrofitInterface.getPopular(movieType,RetrofitInterface.apiKey);
-        readRetrofitData(movieType,movieListCall);
+
+       }
+        else{
+          recyclerView.getLayoutManager().onRestoreInstanceState((Parcelable) movies);
+
+
+        }
+
 
     }
 
@@ -134,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
             movieType="popular";
             movieListCall=retrofitInterface.getPopular(movieType,RetrofitInterface.apiKey);
             readRetrofitData(movieType,movieListCall);
+          //  WidgetService.startWidgetService(this,movies);
 
         }else if(id==R.id.up_coming){
             movieType="upcoming";
@@ -203,9 +222,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                movies=response.body().getMovies();
                Log.v(TAG,"movie size is"+movies.size());
+               widgetMovie=movies;
                progressDialog.dismiss();
                adapter=new MovieAdapter(getApplicationContext(),movies,MainActivity.this);
                recyclerView.setAdapter(adapter);
+               WidgetService.startWidgetService(getApplicationContext(),movies);
 
 
            }
@@ -280,4 +301,22 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
             finish();
         }
     }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(savedInstanceState !=null){
+            movies=savedInstanceState.getParcelable("list");
+        }
+    }
+
+
+
+
+
+
 }
+
+
+

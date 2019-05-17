@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+    android:layoutDirection="rtl"
         >
 
 
@@ -79,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="9dp"
-                android:layout_marginTop="20sp">
+                android:layout_marginTop="20sp"
+                >
 
 
 
@@ -108,27 +110,6 @@
                     />
 
 
-
-                <android.support.design.widget.FloatingActionButton
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:id="@+id/unfav_button"
-                    app:fabSize="normal"
-                    android:layout_gravity="center"
-                    android:src="@drawable/like"
-                    android:visibility="gone"
-                    />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:id="@+id/fav_button"
-                    app:fabSize="normal"
-                    android:layout_gravity="center"
-                    android:src="@drawable/heart"
-                    android:visibility="gone"
-
-                    />
 
                 <Button
                     android:layout_width="80dp"

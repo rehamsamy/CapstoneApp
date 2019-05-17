@@ -35,4 +35,8 @@
     <string name="account">Already Have Account</string>
     <string name="logout">Logout</string>
     <string name="create">Create Account</string>
+    <string name="login">Login</string>
+    <string name="panner_size">BANNER</string>
+    <string name="unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="create_account">Create New Account</string>
 </resources>

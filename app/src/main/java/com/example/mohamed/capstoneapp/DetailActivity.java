@@ -47,7 +47,6 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
     ImageView poster;
     String mTitle,mOverview,mRelease,mVote,mPosterPath;
     MovieDatabase database;
-    FloatingActionButton favButton,unFavButton;
     RecyclerView recyclerView;
     String mid;
 
@@ -79,11 +78,8 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
                recyclerView=(RecyclerView) findViewById(R.id.trailer_list);
                recyclerView.setHasFixedSize(true);
                recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        favButton=(FloatingActionButton) findViewById(R.id.fav_button);
-        unFavButton=(FloatingActionButton) findViewById(R.id.unfav_button);
-        database=MovieDatabase.getInstance(getApplicationContext());
 
-        button=(Button) findViewById(R.id.ff);
+          button=(Button) findViewById(R.id.ff);
         title = (TextView) findViewById(R.id.title);
         overview = (TextView) findViewById(R.id.overview);
         release = (TextView) findViewById(R.id.release);

@@ -13,12 +13,10 @@ import java.util.ArrayList;
 
 
 public  class GridFactory extends RemoteViewsService {
-
-
-
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new GridRemoteFactory(this.getApplicationContext());
+       ArrayList<Movie>movies= intent.getParcelableArrayListExtra("list");
+        return new GridRemoteFactory(this.getApplicationContext(),movies);
     }
 }
 
@@ -29,7 +27,9 @@ public  class GridFactory extends RemoteViewsService {
          Context context;
          ArrayList<Movie> movies;
 
-        public GridRemoteFactory(Context applicationContext) {
+        public GridRemoteFactory(Context applicationContext,ArrayList<Movie>movies) {
+           this. context=applicationContext;
+           this.movies=movies;
 
         }
 
@@ -40,7 +40,8 @@ public  class GridFactory extends RemoteViewsService {
 
         @Override
         public void onDataSetChanged() {
-            movies=MainActivity.movies;
+           movies= MainActivity.widgetMovie;
+
             Log.v("GridFactory","movie widget"+movies.size());
 
         }
@@ -51,8 +52,9 @@ public  class GridFactory extends RemoteViewsService {
         }
 
         @Override
-        public int getCount() {
-            return movies.size();
+        public int getCount(){
+                int x= movies.size();
+               return x;
         }
 
         @Override
@@ -70,6 +72,9 @@ public  class GridFactory extends RemoteViewsService {
             // Picasso.get().load(full_url).into(views.ge);
             Uri uri=Uri.parse(full_url);
             views.setImageViewUri(R.id.poster_image,uri);
+
+            //views.setTextViewText(R.id.text,movie.getOriginal_title());
+
             return  views;
 
         }
@@ -81,7 +86,7 @@ public  class GridFactory extends RemoteViewsService {
 
         @Override
         public int getViewTypeCount() {
-            return 0;
+            return 2;
         }
 
         @Override
@@ -94,12 +99,4 @@ public  class GridFactory extends RemoteViewsService {
             return true;
         }
     }
-
-
-
-
-
-   //     Log.v("GridFactory","movie widget"+movies.size());
-
-
 
