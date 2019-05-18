@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.internal.ParcelableSparseArray;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        movies=new ArrayList<>();
 
         MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111");
         adView=(AdView) findViewById(R.id.adView);
@@ -111,23 +113,31 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         movieType="popular";
 
 
-       if(savedInstanceState==null){
-           movieListCall=retrofitInterface.getPopular(movieType,RetrofitInterface.apiKey);
-           readRetrofitData(movieType,movieListCall);
-
+       if(savedInstanceState == null) {
+           movieListCall = retrofitInterface.getPopular(movieType, RetrofitInterface.apiKey);
+           readRetrofitData(movieType, movieListCall);
 
        }
-        else{
-          recyclerView.getLayoutManager().onRestoreInstanceState((Parcelable) movies);
+           // recyclerView.getLayoutManager().onRestoreInstanceState((Parcelabl) movies);
+            else{
+           progressDialog.hide();
+           movies=savedInstanceState.getParcelableArrayList("list");
+              // Log.v(TAG,"dddd"+movies.size());
+
+           }
 
 
-        }
+
 
 
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("list",movies);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -199,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                     Toast.makeText(getApplicationContext(),"favorite is empty",Toast.LENGTH_LONG).show();
 
                 }else{
+                   // MainActivity.this.movies= (ArrayList<Movie>) movies;
                     Toast.makeText(getApplicationContext(),"size"+movies.size(),Toast.LENGTH_LONG).show();
                     adapter=new MovieAdapter(MainActivity.this, (ArrayList<Movie>) movies,MainActivity.this);
                     recyclerView.setAdapter(adapter);
@@ -221,8 +232,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
            @Override
            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                movies=response.body().getMovies();
+
                Log.v(TAG,"movie size is"+movies.size());
                widgetMovie=movies;
+              // MainActivity.this.movies= movies;
                progressDialog.dismiss();
                adapter=new MovieAdapter(getApplicationContext(),movies,MainActivity.this);
                recyclerView.setAdapter(adapter);
@@ -307,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if(savedInstanceState !=null){
-            movies=savedInstanceState.getParcelable("list");
+            movies=savedInstanceState.getParcelableArrayList("list");
         }
     }
 
