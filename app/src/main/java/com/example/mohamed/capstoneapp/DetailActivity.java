@@ -118,6 +118,8 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
             public void onClick(View v) {
                 if(state){
                     button.setBackground(getDrawable(R.drawable.heart));
+
+                    Log.v("DetailActivity","dddddd"+movie.getOriginal_title());
                     database.taskDao().insertMovieTask(movie);
                     Toast.makeText(DetailActivity.this, "add to vaforite", Toast.LENGTH_LONG).show();
                    state=false;

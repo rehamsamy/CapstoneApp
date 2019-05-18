@@ -28,7 +28,7 @@ public class AppWidget extends AppWidgetProvider {
         intent.putParcelableArrayListExtra("list",movies);
 
         //movies=intent.getParcelableArrayListExtra("list");
-        Log.v("AppWidget","ssssssss"+movies.size());
+//        Log.v("AppWidget","ssssssss"+movies.size());
         views.setRemoteAdapter(R.id.widget_grid,intent);
         views.setTextViewText(R.id.text,"Movie App");
        // views.setTextViewText(R.id.appwidget_text, widgetText);

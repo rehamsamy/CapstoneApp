@@ -25,7 +25,7 @@ public class WidgetService extends IntentService {
         String action=intent.getAction();
         if(action=="movie"){
            ArrayList<Movie> movies= intent.getParcelableArrayListExtra("list");
-           Log.v("WidgetService","aaaaaaa"+movies.size());
+         //  Log.v("WidgetService","aaaaaaa"+movies.size());
             updateWidget(movies);
         }
 
@@ -36,7 +36,7 @@ public class WidgetService extends IntentService {
         int [] id=manager.getAppWidgetIds(new ComponentName(this,AppWidget.class));
         manager.notifyAppWidgetViewDataChanged(id,R.layout.app_widget);
         AppWidget.updateWidget(getApplicationContext(),manager,id,movies);
-     Log.v("WidgetService","sssss"+movies.size());
+    // Log.v("WidgetService","sssss"+movies.size());
 
 
     }
