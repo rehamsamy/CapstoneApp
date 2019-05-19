@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 public interface RetrofitInterface {
 
     String apiKey = "89f2f5dacd021ea83c2b2aff5a2b3db7";
-    String baseUrl = "http://api.themoviedb.org";
+    String baseUrl = "https://api.themoviedb.org";
 
     @GET("/3/movie/{popular}?")
     Call<MovieList> getPopular(@Path("popular")String popular, @Query("api_key")String api_key);

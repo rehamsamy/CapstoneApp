@@ -17,8 +17,13 @@ public interface TaskDao {
     @Insert
     void insertMovieTask(Movie movie);
 
+
     @Query("SELECT * FROM task ORDER BY idd")
    LiveData<List<Movie>> getMovieTasks();
+
+    @Query("SELECT * FROM task ORDER BY idd")
+    List<Movie> getWidgetTasks();
+
 
 
     @Delete

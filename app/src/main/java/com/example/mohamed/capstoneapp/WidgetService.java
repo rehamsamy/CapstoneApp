@@ -10,11 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.KeyEventDispatcher;
 import android.util.Log;
 
+import com.example.mohamed.capstoneapp.Database.MovieDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WidgetService extends IntentService {
  public  static final String MOVIE_ACTION="movie";
+ MovieDatabase database;
 
     public WidgetService() {
         super("WidgetService");
@@ -32,10 +35,15 @@ public class WidgetService extends IntentService {
     }
 
     private void updateWidget() {
+
+        database= MovieDatabase.getInstance(this);
+        ArrayList<Movie> movies= (ArrayList<Movie>) database.taskDao().getWidgetTasks();
+        Log.v("GridFactory","widget"+movies.size());
+
         AppWidgetManager manager=AppWidgetManager.getInstance(this);
         int [] id=manager.getAppWidgetIds(new ComponentName(this,AppWidget.class));
         manager.notifyAppWidgetViewDataChanged(id,R.layout.app_widget);
-        ArrayList<Movie> movies=GridFactory.widgetMovies;
+       // ArrayList<Movie> movies=GridFactory.widgetMovies;
         AppWidget.updateWidget(getApplicationContext(),manager,id,movies);
 //     Log.v("WidgetService","sssss"+movies.size());
 

@@ -123,6 +123,7 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
 
                     Log.v("DetailActivity","dddddd"+movie.getPoster_path());
                     database.taskDao().insertMovieTask(movie);
+                    //database.taskDao().insertMovieTask(movie);
 
 
                     Toast.makeText(DetailActivity.this, "add to vaforite", Toast.LENGTH_LONG).show();

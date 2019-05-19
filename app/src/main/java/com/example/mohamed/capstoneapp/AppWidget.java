@@ -25,11 +25,11 @@ public class AppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
 
         Intent intent=new Intent(context,GridFactory.class);
-
+           intent.putParcelableArrayListExtra("list",movies);
         //movies=intent.getParcelableArrayListExtra("list");
-       // Log.v("AppWidget","ssssssss"+movies.size());
+       Log.v("AppWidget","ssssssss"+movies.size());
         views.setRemoteAdapter(R.id.widget_grid,intent);
-        views.setTextViewText(R.id.text,"Movie App");
+       // views.setTextViewText(R.id.text,"Movie App");
        // views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget
