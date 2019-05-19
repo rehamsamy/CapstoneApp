@@ -45,7 +45,9 @@
         </receiver>
 
         <service android:name=".WidgetService" ></service>
-       <service android:name=".GridFactory"></service>
+       <service android:name=".GridFactory"
+           android:permission="android.permission.BIND_REMOTEVIEWS">
+       </service>
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"

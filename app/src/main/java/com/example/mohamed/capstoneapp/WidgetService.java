@@ -23,27 +23,28 @@ public class WidgetService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         String action=intent.getAction();
-        if(action=="movie"){
-           ArrayList<Movie> movies= intent.getParcelableArrayListExtra("list");
+        if(MOVIE_ACTION.equals(action)){
+          // ArrayList<Movie> movies= intent.getParcelableArrayListExtra("list");
          //  Log.v("WidgetService","aaaaaaa"+movies.size());
-            updateWidget(movies);
+            updateWidget();
         }
 
     }
 
-    private void updateWidget(ArrayList<Movie> movies) {
+    private void updateWidget() {
         AppWidgetManager manager=AppWidgetManager.getInstance(this);
         int [] id=manager.getAppWidgetIds(new ComponentName(this,AppWidget.class));
         manager.notifyAppWidgetViewDataChanged(id,R.layout.app_widget);
+        ArrayList<Movie> movies=GridFactory.widgetMovies;
         AppWidget.updateWidget(getApplicationContext(),manager,id,movies);
-    // Log.v("WidgetService","sssss"+movies.size());
+//     Log.v("WidgetService","sssss"+movies.size());
 
 
     }
 
-    public static void startWidgetService(Context context,List<Movie> movies){
+    public static void startWidgetService(Context context){
         Intent intent=new Intent(context,WidgetService.class);
-        intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) movies);
+       // intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) movies);
         intent.setAction(MOVIE_ACTION);
         context.startService(intent);
     }

@@ -68,6 +68,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Holder> {
 
     }
 
+
+     public  void updateTasks(ArrayList<Movie> tasks){
+       movies.clear();
+       movies.addAll(tasks);
+       notifyDataSetChanged();
+     }
+
     class Holder extends RecyclerView.ViewHolder{
          View itemView;
         public Holder(@NonNull View item) {

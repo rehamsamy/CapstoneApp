@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         recyclerView=(RecyclerView) findViewById(R.id.movie_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        adapter = new MovieAdapter(getApplicationContext(), new ArrayList<Movie>(), MainActivity.this);
+        recyclerView.setAdapter(adapter);
         progressDialog=new ProgressDialog(this);
         progressDialog.setTitle("download movies");
         progressDialog.setMessage("please wait until finishing");
@@ -121,13 +123,21 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
            // recyclerView.getLayoutManager().onRestoreInstanceState((Parcelabl) movies);
             else{
            progressDialog.hide();
-           movies=savedInstanceState.getParcelableArrayList("list");
-              // Log.v(TAG,"dddd"+movies.size());
-
+           if(savedInstanceState.containsKey("list")){
+               movies=savedInstanceState.getParcelableArrayList("list");
+               adapter.updateTasks(movies);
+           }
+          else if(savedInstanceState.containsKey("person")){
+               people=savedInstanceState.getParcelableArrayList("person");
+               mAdapter=new PersonAdapter(this,new ArrayList<Person>(),this);
+               recyclerView.setAdapter(mAdapter);
+                mAdapter.getPeople(people);
            }
 
 
+              // Log.v(TAG,"dddd"+movies.size());
 
+           }
 
 
     }
@@ -137,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("list",movies);
+        outState.putParcelableArrayList("person",people);
     }
 
     @Override
@@ -204,18 +215,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         listLiveData.observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
+                widgetMovie= (ArrayList<Movie>) movies;
 
                 if(movies==null){
                     Toast.makeText(getApplicationContext(),"favorite is empty",Toast.LENGTH_LONG).show();
 
                 }else{
                    // MainActivity.this.movies= (ArrayList<Movie>) movies;
-                    Toast.makeText(getApplicationContext(),"size"+movies.size(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"size"+widgetMovie.size(),Toast.LENGTH_LONG).show();
+                    Log.v(TAG,"llllllll"+widgetMovie.size());
                     adapter=new MovieAdapter(MainActivity.this, (ArrayList<Movie>) movies,MainActivity.this);
                     recyclerView.setAdapter(adapter);
-                    WidgetService.startWidgetService(getApplicationContext(),movies);
-
-
+                   // WidgetService.startWidgetService(getApplicationContext());
                 }
             }
         });
@@ -234,12 +245,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                movies=response.body().getMovies();
 
                Log.v(TAG,"movie size is"+movies.size());
-               widgetMovie=movies;
+               //widgetMovie=movies;
               // MainActivity.this.movies= movies;
                progressDialog.dismiss();
                adapter=new MovieAdapter(getApplicationContext(),movies,MainActivity.this);
                recyclerView.setAdapter(adapter);
-               WidgetService.startWidgetService(getApplicationContext(),movies);
+
 
 
            }
@@ -315,14 +326,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         }
     }
 
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState !=null){
-            movies=savedInstanceState.getParcelableArrayList("list");
-        }
-    }
 
 
 

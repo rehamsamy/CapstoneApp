@@ -1,6 +1,7 @@
 package com.example.mohamed.capstoneapp;
 
 import android.content.Context;
+import android.provider.Contacts;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -75,5 +76,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.Holder> {
             super(item);
             itemView= item;
         }
+    }
+
+
+
+    public void getPeople(ArrayList<Person> peoples){
+        movies.clear();
+        movies.addAll(peoples);
+        notifyDataSetChanged();
+
+
     }
 }

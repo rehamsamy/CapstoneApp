@@ -25,10 +25,9 @@ public class AppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
 
         Intent intent=new Intent(context,GridFactory.class);
-        intent.putParcelableArrayListExtra("list",movies);
 
         //movies=intent.getParcelableArrayListExtra("list");
-//        Log.v("AppWidget","ssssssss"+movies.size());
+       // Log.v("AppWidget","ssssssss"+movies.size());
         views.setRemoteAdapter(R.id.widget_grid,intent);
         views.setTextViewText(R.id.text,"Movie App");
        // views.setTextViewText(R.id.appwidget_text, widgetText);
@@ -41,13 +40,12 @@ public class AppWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
 
-        WidgetService.startWidgetService(context,mMovies);
+        WidgetService.startWidgetService(context);
        // Log.v("AppWidget","widget"+MainActivity.movies.size());
 
     }
 
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int [] appWidgetIds, ArrayList<Movie> movies){
-        mMovies=movies;
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId,movies);
 

@@ -48,7 +48,10 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
     String mTitle,mOverview,mRelease,mVote,mPosterPath;
     MovieDatabase database;
     RecyclerView recyclerView;
+  public static   ArrayList<Movie> widgetMovies;
     String mid;
+
+     Movie movie;
 
     ArrayList<Trailer> trailers;
     ProgressDialog progressDialog;
@@ -71,10 +74,9 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
         getSupportActionBar().setTitle("Detail Display");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        database=MovieDatabase.getInstance(this);
 
-        // http://api.themoviedb.org/3/movie/456740/videos?api_key=89f2f5dacd021ea83c2b2aff5a2b3db7
 
-        //id=R.drawable.like;
                recyclerView=(RecyclerView) findViewById(R.id.trailer_list);
                recyclerView.setHasFixedSize(true);
                recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -91,7 +93,7 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
         int position=intent.getIntExtra("position",0);
         Log.v(TAG,"position"+position);
 
-        final Movie movie=movies.get(position);
+        movie=movies.get(position);
 
         title.setText(movie.getOriginal_title());
         overview.setText(movie.getOverview());
@@ -119,8 +121,10 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
                 if(state){
                     button.setBackground(getDrawable(R.drawable.heart));
 
-                    Log.v("DetailActivity","dddddd"+movie.getOriginal_title());
+                    Log.v("DetailActivity","dddddd"+movie.getPoster_path());
                     database.taskDao().insertMovieTask(movie);
+
+
                     Toast.makeText(DetailActivity.this, "add to vaforite", Toast.LENGTH_LONG).show();
                    state=false;
                 }
@@ -140,8 +144,6 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
         progressDialog.setTitle("download trailer");
         progressDialog.show();
         getTrailer();
-
-
 
     }
 
