@@ -15,9 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mohamed.capstoneapp.MainActivity;
+import com.example.mohamed.capstoneapp.Ui.MainActivity;
 import com.example.mohamed.capstoneapp.R;
-import com.example.mohamed.capstoneapp.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

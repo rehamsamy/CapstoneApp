@@ -8,7 +8,7 @@ import android.content.Context;
 
 import com.example.mohamed.capstoneapp.Movie;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class}, version = 2, exportSchema = false)
 public abstract class MovieDatabase extends RoomDatabase {
     private static MovieDatabase mInstance;
     private static String DATABASE_NAME = "tasks";

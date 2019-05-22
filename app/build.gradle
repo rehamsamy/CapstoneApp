@@ -5,10 +5,14 @@ android {
         config {
             keyAlias 'alias'
             keyPassword 'password'
-            storeFile file('C:/Users/mohamed/AndroidStudioProjects/CapstoneApp/signingkey.jks')
+            storeFile file("$rootDir/signingkey.jks")
             storePassword 'password'
         }
+        config1 {
+        }
     }
+
+   // $rootDir
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.mohamed.capstoneapp"

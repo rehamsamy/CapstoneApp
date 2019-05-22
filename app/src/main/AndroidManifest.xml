@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,16 +25,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Ui.DetailActivity"
+            android:parentActivityName=".Ui.MainActivity" />
         <activity
-            android:name=".PersonMovieActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Ui.PersonMovieActivity"
+            android:parentActivityName=".Ui.MainActivity" />
+        <activity android:name=".Ui.StartActivity"></activity>
 
-        <activity android:name=".StartActivity">
-        </activity>
-
-        <receiver android:name=".AppWidget">
+        <receiver android:name=".Widget.AppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -44,19 +42,31 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <service android:name=".WidgetService" ></service>
-       <service android:name=".GridFactory"
-           android:permission="android.permission.BIND_REMOTEVIEWS">
-       </service>
+        <!--<service android:name=".Widget.WidgetService" />-->
+        <!--<service-->
+            <!--android:name=".Widget.GridFactory"-->
+            <!--android:permission="android.permission.BIND_REMOTEVIEWS"></service>-->
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
 
-        <activity android:name=".firebase.LoginActivity"
-            android:parentActivityName=".StartActivity"/>
-        <activity android:name=".firebase.RegisterActivity"
-            android:parentActivityName=".StartActivity"></activity>
+        <activity
+            android:name=".firebase.LoginActivity"
+            android:parentActivityName=".Ui.StartActivity" />
+        <activity
+            android:name=".firebase.RegisterActivity"
+            android:parentActivityName=".Ui.StartActivity" />
+
+        <receiver android:name=".NewWidget2">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_widget2_info" />
+        </receiver>
     </application>
 
 </manifest>

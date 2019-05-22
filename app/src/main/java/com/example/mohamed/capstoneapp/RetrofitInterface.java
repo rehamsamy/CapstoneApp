@@ -1,9 +1,7 @@
 package com.example.mohamed.capstoneapp;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.StringRes;
-
 import com.example.mohamed.capstoneapp.PersonData.PeopleMovieList;
+import com.example.mohamed.capstoneapp.PersonData.PersonList;
 import com.example.mohamed.capstoneapp.Trailers.TrailerList;
 
 import retrofit2.Call;
