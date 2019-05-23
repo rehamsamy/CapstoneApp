@@ -35,6 +35,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,8 +45,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailActivity extends AppCompatActivity  implements TrailerAdapter.OnItemClickListener {
  static  final String TAG="DetailActivity";
-    TextView title, overview, release, vote;
-    ImageView poster;
+
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.overview) TextView overview;
+    @BindView(R.id.vote) TextView vote;
+    @BindView(R.id.release) TextView release;
+    @BindView(R.id.poster)  ImageView poster;
+    @BindView(R.id.ff) Button button;
+
+
+
     String mTitle,mOverview,mRelease,mVote,mPosterPath;
     MovieDatabase database;
     RecyclerView recyclerView;
@@ -56,7 +66,7 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
     int id;
     ArrayList<Trailer> trailers;
     ProgressDialog progressDialog;
-    Button button;
+    //Button button;
     String url;
     boolean state=true;
     TrailerAdapter adapter;
@@ -68,6 +78,9 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         progressDialog=new ProgressDialog(this);
+
+
+        ButterKnife.bind(this);
 
         toolbar=(Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -81,14 +94,7 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
                recyclerView.setHasFixedSize(true);
                recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-          button=(Button) findViewById(R.id.ff);
-        title = (TextView) findViewById(R.id.title);
-        overview = (TextView) findViewById(R.id.overview);
-        release = (TextView) findViewById(R.id.release);
-        vote = (TextView) findViewById(R.id.vote);
-        poster = (ImageView) findViewById(R.id.poster);
-
-        Intent intent = getIntent();
+       Intent intent = getIntent();
         ArrayList<Movie> movies = intent.getParcelableArrayListExtra("list");
         int position=intent.getIntExtra("position",0);
         Log.v(TAG,"position"+position);
@@ -117,10 +123,6 @@ public class DetailActivity extends AppCompatActivity  implements TrailerAdapter
 
          mid=movie.getId();
         url = "http://api.themoviedb.org/3/movie/" + mid + "/videos?api_key=89f2f5dacd021ea83c2b2aff5a2b3db7";
-
-        //Log.v(TAG,"id"+id);
-
-
 
 
       button.setOnClickListener(new View.OnClickListener() {

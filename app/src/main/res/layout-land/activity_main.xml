@@ -22,8 +22,10 @@
         android:layout_below="@+id/appbar"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/movie_list">
+        android:layout_height="wrap_content"
+        android:id="@+id/movie_list"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
     </android.support.v7.widget.RecyclerView>
 
 
@@ -32,7 +34,7 @@
         android:elevation="10dp"
         android:outlineAmbientShadowColor="#ffff"
         android:id="@+id/adView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"

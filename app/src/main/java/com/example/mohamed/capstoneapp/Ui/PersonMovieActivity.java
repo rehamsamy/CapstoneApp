@@ -48,7 +48,7 @@ public class PersonMovieActivity extends AppCompatActivity implements MovieAdapt
 
        peopleMovieLists=new ArrayList<>();
        recyclerView=(RecyclerView) findViewById(R.id.movie_list);
-       recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+       recyclerView.setLayoutManager(new GridLayoutManager(this,1));
        recyclerView.setHasFixedSize(true);
 
        Person person=people.get(position);

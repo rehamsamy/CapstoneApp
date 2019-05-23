@@ -168,21 +168,25 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
 
         if(id==R.id.top_rated){
             movieType="top_rated";
-           movieListCall=retrofitInterface.getTopRated("top_rated",RetrofitInterface.apiKey);
+            getSupportActionBar().setTitle("Top Rated");
+           movieListCall=retrofitInterface.getMovies("top_rated",RetrofitInterface.apiKey);
            readRetrofitData(movieType,movieListCall);
 
         }else if(id==R.id.popular){
+            getSupportActionBar().setTitle("Popular Movie");
             movieType="popular";
-            movieListCall=retrofitInterface.getPopular(movieType,RetrofitInterface.apiKey);
+            movieListCall=retrofitInterface.getMovies(movieType,RetrofitInterface.apiKey);
             readRetrofitData(movieType,movieListCall);
           //  WidgetService.startWidgetService(this,movies);
 
         }else if(id==R.id.up_coming){
+            getSupportActionBar().setTitle("Upcoming");
             movieType="upcoming";
-            movieListCall=retrofitInterface.getUpComing(movieType,RetrofitInterface.apiKey);
+            movieListCall=retrofitInterface.getMovies(movieType,RetrofitInterface.apiKey);
             readRetrofitData(movieType,movieListCall);
 
         }else if(id==R.id.now_playing){
+            getSupportActionBar().setTitle("Now playing");
             progressDialog.dismiss();
             movieType="now_playing";
             movieListCall=retrofitInterface.getNowPlaying(movieType,RetrofitInterface.apiKey);
@@ -191,13 +195,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         }
 
         else if(id==R.id.people){
-
+            getSupportActionBar().setTitle("Popular People");
             progressDialog.dismiss();
             movieType="popular";
           personListCall=retrofitInterface.getPerson(movieType,RetrofitInterface.apiKey);
            readPersonData(movieType,personListCall);
 
         }else if(id==R.id.favorite){
+            getSupportActionBar().setTitle("Favorites");
             retreiveData();
         }
 

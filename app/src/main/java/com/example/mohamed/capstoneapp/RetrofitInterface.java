@@ -29,6 +29,11 @@ public interface RetrofitInterface {
     Call<MovieList> getNowPlaying(@Path("now_playing")String nowPlaying, @Query("api_key")String api_key);
 
 
+    @GET ("/3/movie/{sort_by}?")
+    Call<MovieList> getMovies(@Path("sort_by")String sortBy,@Query("api_key") String appi_key);
+
+
+
     @GET("/3/person/{popular}?")
     Call<PersonList> getPerson(@Path("popular")String person, @Query("api_key")String api_key);
 
@@ -42,4 +47,5 @@ public interface RetrofitInterface {
 
     @GET("3/movie/{id}/videos?")
     Call<TrailerList> getTrailers(@Path("id")String id , @Query("api_key")String api_key);
+
 }
